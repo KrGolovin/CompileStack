@@ -5,16 +5,17 @@
 #include "functions.h"
 #include "StackArray.h"
 #include "Operator.h"
+#include <sstream>
 bool isDigit(char c) {
-    return (c > '0') && (c < '9');
+    return (c >= '0') && (c <= '9');
 }
 
-void pushOperand(Operator & anOperator, StackArray<Operator> & stack, std::string & ans) {
+void pushOperand(Operator & anOperator, StackArray<Operator> & stack, std::stringstream & ss) {
     if (anOperator.getChar() == '(') {
         stack.push(anOperator);
     } else {
         while (!stack.isEmpty() && stack.getTop().getPriority() >= anOperator.getPriority()) {
-            ans += stack.pop().getChar();
+            ss << stack.pop().getChar();
         }
         if (anOperator.getChar() == ')') {
             stack.pop();
@@ -26,18 +27,19 @@ void pushOperand(Operator & anOperator, StackArray<Operator> & stack, std::strin
 
 std::string toPostfix(std::string &input) {
     StackArray<Operator> stack(input.length());
-    std::string ans;
+    std::stringstream ss;
     for (char c: input) {
         if (isDigit(c)) {
-            ans += c;
+            ss << c;
         } else {
             Operator op(c);
-            pushOperand(op, stack, ans);
+            pushOperand(op, stack, ss);
         }
     }
     while (!stack.isEmpty()) {
-        ans += stack.pop().getChar();
+        ss << stack.pop().getChar();
     }
+    std::string ans = ss.str();
     return ans;
 }
 
