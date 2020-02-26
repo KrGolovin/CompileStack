@@ -6,6 +6,6 @@
 #define COMPILESTACK_FUNCTIONS_H
 
 #include <iostream>
-void toPostfix(std::string &input);
+std::string toPostfix(std::string &input);
 int calculate(std::string &input);
 #endif //COMPILESTACK_FUNCTIONS_H

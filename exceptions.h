@@ -32,3 +32,13 @@ public:
 private:
     const char *reason;  // ! const
 };
+
+class UndefSymbol : public std::exception {
+public:
+    UndefSymbol() : reason("Undefinded symbol in input string") {}
+
+    const char *what() const noexcept { return reason; }
+
+private:
+    const char *reason;  // ! const
+};

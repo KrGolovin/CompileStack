@@ -9,12 +9,12 @@ bool isDigit(char c) {
     return (c > '0') && (c < '9');
 }
 
-void pushOperand(Operator & anOperator, StackArray<Operator> & stack) {
+void pushOperand(Operator & anOperator, StackArray<Operator> & stack, std::string & ans) {
     if (anOperator.getChar() == '(') {
         stack.push(anOperator);
     } else {
         while (!stack.isEmpty() && stack.getTop().getPriority() >= anOperator.getPriority()) {
-            std::cout << stack.pop().getChar();
+            ans += stack.pop().getChar();
         }
         if (anOperator.getChar() == ')') {
             stack.pop();
@@ -24,19 +24,21 @@ void pushOperand(Operator & anOperator, StackArray<Operator> & stack) {
     }
 }
 
-void toPostfix(std::string &input) {
+std::string toPostfix(std::string &input) {
     StackArray<Operator> stack(input.length());
+    std::string ans;
     for (char c: input) {
-        Operator op(c);
         if (isDigit(c)) {
-            std::cout << c;
+            ans += c;
         } else {
-            pushOperand(op, stack);
+            Operator op(c);
+            pushOperand(op, stack, ans);
         }
     }
     while (!stack.isEmpty()) {
-        std::cout << stack.pop().getChar();
+        ans += stack.pop().getChar();
     }
+    return ans;
 }
 
 int calculate(std::string &input) {

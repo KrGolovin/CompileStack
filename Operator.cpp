@@ -4,6 +4,7 @@
 
 #include "Operator.h"
 #include <algorithm>
+#include "exceptions.h"
 char Operator::getChar() const {
     return c_;
 }
@@ -24,6 +25,8 @@ Operator::Operator(char c): c_(c) {
         case '/':
             priority_ = 3;
             break;
+        default:
+            throw UndefSymbol();
     }
 }
 
@@ -42,7 +45,5 @@ int Operator::calculateOperation(int first, int second) const {
             return first * second;
         case '/':
             return first / second;
-        default:
-            return -1;
     }
 }
