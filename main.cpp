@@ -18,14 +18,14 @@ int main() {
     }
 
     try {
-        std::string str = "1";
+        std::string str = "1/0";
         std::cout << toPostfix(str);
     } catch(std::exception & e) {
         std::cerr << e.what() << std::endl;
     }
 
     try {
-        std::string str2 = "1";
+        std::string str2 = "10/";
         std::cout << std::endl << calculate(str2) << std::endl;
     } catch(std::exception & e) {
         std::cerr << e.what() << std::endl;
@@ -45,7 +45,7 @@ int main() {
         std::cerr << e.what() << std::endl;
     }
     try {
-        std::string str = "1 + (2)";
+        std::string str = "1+2*3";
         std::cout << toPostfix(str);
     } catch(std::exception & e) {
         std::cerr << e.what() << std::endl;
@@ -54,6 +54,32 @@ int main() {
     try {
         std::string str2 = "12345678.9********";
         std::cout << std::endl << calculate(str2) << std::endl;
+    } catch(std::exception & e) {
+        std::cerr << e.what() << std::endl;
+    }
+    try {
+        std::string str = "2^2";
+        std::cout << toPostfix(str);
+    } catch(std::exception & e) {
+        std::cerr << e.what() << std::endl;
+    }
+
+    try {
+        std::string str2 = "22^";
+        std::cout << std::endl << calculate(str2) << std::endl;
+    } catch(std::exception & e) {
+        std::cerr << e.what() << std::endl;
+    }
+
+    try {
+        std::string str = "(2^2";
+        std::cout << toPostfix(str);
+    } catch(std::exception & e) {
+        std::cerr << e.what() << std::endl;
+    }
+    try {
+        std::string str = "2^2)";
+        std::cout << toPostfix(str);
     } catch(std::exception & e) {
         std::cerr << e.what() << std::endl;
     }

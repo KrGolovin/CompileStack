@@ -6,6 +6,7 @@
 #include "StackArray.h"
 #include "Operator.h"
 #include <sstream>
+#include "exceptions.h"
 bool isDigit(char c) {
     return (c >= '0') && (c <= '9');
 }
@@ -18,6 +19,9 @@ void pushOperand(Operator & anOperator, StackArray<Operator> & stack, std::strin
             ss << stack.pop().getChar();
         }
         if (anOperator.getChar() == ')') {
+            if (stack.isEmpty() || stack.getTop().getChar() != '(') {
+                throw BracketsException();
+            }
             stack.pop();
         } else {
             stack.push(anOperator);
@@ -37,6 +41,9 @@ std::string toPostfix(std::string &input) {
         }
     }
     while (!stack.isEmpty()) {
+        if (stack.getTop().getChar() == '(') {
+            throw BracketsException();
+        }
         ss << stack.pop().getChar();
     }
     std::string ans = ss.str();

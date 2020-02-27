@@ -42,3 +42,23 @@ public:
 private:
     const char *reason;  // ! const
 };
+
+class DivisionByZero : public std::exception {
+public:
+    DivisionByZero() : reason("Division by zero ") {}
+
+    const char *what() const noexcept { return reason; }
+
+private:
+    const char *reason;  // ! const
+};
+
+class BracketsException : public std::exception {
+public:
+    BracketsException() : reason("Wrong count of brackets ") {}
+
+    const char *what() const noexcept { return reason; }
+
+private:
+    const char *reason;  // ! const
+};
